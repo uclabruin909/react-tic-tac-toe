@@ -1,6 +1,6 @@
 .board {
   width: 500px;
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   flex-direction: row;
 }
