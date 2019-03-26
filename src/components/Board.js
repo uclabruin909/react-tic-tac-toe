@@ -22,23 +22,25 @@ class Board extends Component {
 
   }
 
+  renderBoxElements() {
+    let boxEls = this.state.boxes.map((boxVal) => {
+      return (
+        <div className="box">
+          {boxVal}
+        </div>
+      );
+    });
+    return boxEls;
+  };
+
   render() {
     return (
       <div className="board">
-        <div className="box"></div>
-        <div className="box"></div>
-        <div className="box"></div>
-        <div className="box"></div>
-        <div className="box"></div>
-        <div className="box"></div>
-        <div className="box"></div>
-        <div className="box"></div>
-        <div className="box"></div>                
-
+        {this.renderBoxElements()}
       </div>
     );
   }
-  
+
 }
 
 export default Board;
