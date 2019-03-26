@@ -34,7 +34,7 @@ class Board extends Component {
     this.handleBoxClick = this.handleBoxClick.bind(this);
     this.resetGame = this.resetGame.bind(this);
     this.resetPastScores = this.resetPastScores.bind(this);
-    
+
   }
 
   componentWillMount() {
@@ -130,8 +130,7 @@ class Board extends Component {
   renderBoxElements() {
     let boxEls = this.state.boxes.map((boxVal, boxIndex) => {
       return (
-        <Box className="box" 
-          key={boxIndex}
+        <Box key={boxIndex}
           boxIndex={boxIndex} 
           boxValue={boxVal} 
           onClickHandler={this.handleBoxClick} 

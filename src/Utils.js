@@ -2,6 +2,22 @@ import { PlayerMap, LS_KEY } from './Consts';
 
 class Utils {
 
+	/*Util function to retrieve className on mark
+		eg. X:x-value O:y-value
+	*/
+	GetValueClassName(mark) {
+		if (!mark) return '';
+		
+		switch (mark.toUpperCase()) {
+			case 'X':
+				return 'x-value';
+			case 'O':
+				return 'y-value';
+			default:
+				return '';
+		}
+	}
+
 	/*Util function to retrieve name of player based on mark value
 		eg. X=player O=computer
 	*/

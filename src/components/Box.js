@@ -1,18 +1,19 @@
 import React from 'react';
-
+import Utils from '../Utils';
 import './Box.css';
 
 const Box = (props) => {
-	const {
+	let {
 		boxValue,
-		className,
 		boxIndex,
 		onClickHandler
 	} = props;
 
+	let valueClassName = Utils.GetValueClassName(boxValue); 
+
 	return (
-    <div className={className} box-index={boxIndex} onClick={onClickHandler}>
-      {boxValue}
+    <div className="box" box-index={boxIndex} onClick={onClickHandler}>
+      <span className={valueClassName}>{boxValue}</span>
     </div>
 	);
 
