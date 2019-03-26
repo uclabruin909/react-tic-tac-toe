@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 import './Board.css';
 
+import Box from './Box';
+
+//player mapping used to determine input value
+const PlayerMap = {
+  player1: 'X',
+  player2: 'O'
+};
+
 class Board extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
+      currentPlayer: PlayerMap['player1'],
       //9 boxes total for 3x3 grid. init as null for blank board
       boxes: [
         null,
@@ -17,7 +26,7 @@ class Board extends Component {
         null,
         null,
         null,        
-      ],
+      ]
     };
 
     this.handleBoxClick = this.handleBoxClick.bind(this);
@@ -32,9 +41,12 @@ class Board extends Component {
   renderBoxElements() {
     let boxEls = this.state.boxes.map((boxVal, boxIndex) => {
       return (
-        <div className="box" key={boxIndex} box-index={boxIndex} onClick={this.handleBoxClick}>
-          {boxVal}
-        </div>
+        <Box className="box" 
+          key={boxIndex}
+          boxIndex={boxIndex} 
+          boxValue={boxVal} 
+          onClickHandler={this.handleBoxClick} 
+        />
       );
     });
     return boxEls;
