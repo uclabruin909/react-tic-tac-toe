@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Utils from './Utils';
-import { LS_KEY } from './Consts';
 
 
 //app component imports
@@ -11,7 +10,7 @@ class App extends Component {
 
 	componentWillMount() {
 		//if no local store of score history, initialize
-		if (!Utils.GetLocalStoreScore(LS_KEY['player'])) {
+		if (!Utils.GetLocalStoreScore('player')) {
 			Utils.InitLocalStorage();
 		}
 	}

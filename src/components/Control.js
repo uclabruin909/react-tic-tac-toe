@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Utils from '../Utils';
-import { LS_KEY } from '../Consts';
 import './Control.css';
 
 

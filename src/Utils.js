@@ -56,7 +56,11 @@ class Utils {
 	}
 
 	GetLocalStoreScore(playerKey) {
-		return localStorage.getItem(playerKey);
+		return Number(localStorage.getItem(LS_KEY[playerKey]));
+	}
+
+	SetLocalStorageScore(playerKey, newScore) {
+		localStorage.setItem(LS_KEY[playerKey], newScore);
 	}
 
 

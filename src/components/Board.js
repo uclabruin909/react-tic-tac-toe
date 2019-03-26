@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Board.css';
-import { PlayerMap, LS_KEY } from '../Consts';
+import { PlayerMap } from '../Consts';
 import Utils from '../Utils';
 
 import Box from './Box';
@@ -36,8 +36,8 @@ class Board extends Component {
   }
 
   componentWillMount() {
-    const playerPastScore = Utils.GetLocalStoreScore(LS_KEY['player']);
-    const computerPastScore = Utils.GetLocalStoreScore(LS_KEY['computer']);
+    const playerPastScore = Utils.GetLocalStoreScore('player');
+    const computerPastScore = Utils.GetLocalStoreScore('computer');
     this.setState({
       playerPastScore,
       computerPastScore
@@ -61,8 +61,11 @@ class Board extends Component {
         this.setState({
           winner: true,
           boxes: updatedBoxes
+        }, () => {
+          this.updatePastScore(Utils.GetPlayerKey(currentPlayer));
         });
-      } else {
+      } 
+      else {
         this.setState({
           currentPlayer: currentPlayer === PlayerMap['player'] ? PlayerMap['computer'] : PlayerMap['player'],
           boxes: updatedBoxes
@@ -72,6 +75,32 @@ class Board extends Component {
       Utils.CalculateBestMove(updatedBoxes);
     }
     
+  }
+
+  updatePastScore(playerKey) {
+    console.log(playerKey)
+    switch (playerKey) {
+      case 'player':
+        let newPlayerScore = this.state.playerPastScore + 1;
+        this.setState({
+          playerPastScore: newPlayerScore
+        }, () => {
+          Utils.SetLocalStorageScore(playerKey, newPlayerScore);
+        });
+        break;
+
+      case 'computer':
+        let newCompScore = this.state.computerPastScore + 1;
+        this.setState({
+          computerPastScore: newCompScore
+        }, () => {
+          Utils.SetLocalStorageScore(playerKey, newCompScore);
+        }); 
+        break;
+
+      default:
+        break;     
+    }
   }
 
   resetGame(evt) {
