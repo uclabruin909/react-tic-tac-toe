@@ -34,8 +34,22 @@ class Board extends Component {
 
   handleBoxClick(evt) {
     evt.preventDefault();
-    const boxIndex = evt.target.getAttribute('box-index');
-    console.log('Box clicked:', boxIndex);
+    let boxIndex = evt.target.getAttribute('box-index');
+    let updatedBoxes = [...this.state.boxes];
+    let currentPlayer = this.state.currentPlayer;
+    
+    //update target box with current player value only if null (empty)
+    if (updatedBoxes[boxIndex] === null) {
+      updatedBoxes[boxIndex] = currentPlayer;
+      //set state with updated box values and change player
+      this.setState({
+        boxes: updatedBoxes,
+        currentPlayer: this.state.currentPlayer === PlayerMap['player1'] ? PlayerMap['player2'] : PlayerMap['player1']
+      });
+
+    }
+    
+
   }
 
   renderBoxElements() {
