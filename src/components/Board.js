@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Board.css';
+import Utils from '../Utils';
 
 import Box from './Box';
 import Control from './Control';
@@ -34,7 +35,6 @@ class Board extends Component {
 
     this.handleBoxClick = this.handleBoxClick.bind(this);
     this.resetGame = this.resetGame.bind(this);
-    this.checkForWinner = this.checkForWinner.bind(this);
   }
 
   handleBoxClick(evt) {
@@ -46,13 +46,21 @@ class Board extends Component {
     //update target box with current player value only if null (empty) and no current winner
     if (updatedBoxes[boxIndex] === null && !this.state.winner) {
       updatedBoxes[boxIndex] = currentPlayer;
+      const hasWinner = Utils.CheckForWinner(updatedBoxes)
+      //if has winner, update winner and boxes on state,
+      //if no winner, update boxes and current player
       //set state with updated box values and change player and then check for winner
-      this.setState({
-        boxes: updatedBoxes,
-        currentPlayer: this.state.currentPlayer === PlayerMap['player1'] ? PlayerMap['player2'] : PlayerMap['player1']
-      }, () => {
-        this.checkForWinner();
-      });
+      if (hasWinner) {
+        this.setState({
+          winner: true,
+          boxes: updatedBoxes
+        });
+      } else {
+        this.setState({
+          currentPlayer: currentPlayer === PlayerMap['player1'] ? PlayerMap['player2'] : PlayerMap['player1'],
+          boxes: updatedBoxes
+        });
+      }
 
     }
     
@@ -63,36 +71,11 @@ class Board extends Component {
     let emptyBoxes = [null, null, null, null, null, null, null, null, null];
     this.setState({
       boxes: emptyBoxes,
+      winner: false,
       currentPlayer: PlayerMap['player1']
     });
   }
 
-  checkForWinner() {
-    //all potential winning lines
-    const winningLines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],      
-    ];
-
-    for (let i=0; i<winningLines.length; i++) {
-      const [a, b, c] = winningLines[i];
-      const currentBoxes= this.state.boxes;
-      //compare on current boxes
-      if (currentBoxes[a] && currentBoxes[a] === currentBoxes[b] && currentBoxes[a] === currentBoxes[c]) {
-        this.setState({
-          winner: true
-        });
-      }
-    }
-
-
-  }
 
   renderBoxElements() {
     let boxEls = this.state.boxes.map((boxVal, boxIndex) => {
