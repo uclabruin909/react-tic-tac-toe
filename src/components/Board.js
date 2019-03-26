@@ -32,7 +32,7 @@ class Board extends Component {
   renderBoxElements() {
     let boxEls = this.state.boxes.map((boxVal, boxIndex) => {
       return (
-        <div className="box" box-index={boxIndex} onClick={this.handleBoxClick}>
+        <div className="box" key={boxIndex} box-index={boxIndex} onClick={this.handleBoxClick}>
           {boxVal}
         </div>
       );
