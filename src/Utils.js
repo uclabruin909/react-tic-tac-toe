@@ -1,4 +1,17 @@
+import { PlayerMap } from './Consts';
+
 class Utils {
+
+	/*Util function to retrieve name of player based on mark value
+		eg. X=player O=computer
+	*/
+	GetPlayerKey(mark) {
+		for (let playerKey in PlayerMap) {
+			if (PlayerMap[playerKey] === mark.toUpperCase()) {
+				return playerKey;
+			}
+		}
+	}
 
 	/*Check if there is winner*/
 	CheckForWinner(boxes) {
@@ -24,7 +37,20 @@ class Utils {
 
 	  return false;		
 	}
-	
+
+
+	/*Calculate Best Move for computer*/
+	CalculateBestMove(boxes) {
+		let emptyBoxes = boxes.reduce((emptyCollection, boxVal, ind) => {
+			if (boxVal === null) {
+				emptyCollection.push(ind);
+			}
+			return emptyCollection
+		}, [])
+		console.log(emptyBoxes);
+	}
+
+
 
 }
 
