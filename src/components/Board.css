@@ -1,0 +1,33 @@
+.board {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.board td {
+  width: 33.333%;
+  border: 6px solid #222;
+}
+
+.board td::after {
+  content: "";
+  display: block;
+  margin-top: 100%;
+}
+
+.board td:first-of-type {
+  border-left-color: transparent;
+  border-top-color: transparent;
+}
+
+.board td:nth-of-type(2) {
+  border-top-color: transparent;
+}
+
+.board td:nth-of-type(3) {
+  border-right-color: transparent;
+  border-top-color: transparent;
+}
+
+.board tr:nth-of-type(3) td {
+  border-bottom-color: transparent;
+}
