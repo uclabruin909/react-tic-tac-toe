@@ -19,7 +19,7 @@ class App extends Component {
   render() {
     return (
       <div className="app-container">
-        <h2>React: Tic-Tac-Toe App</h2>
+        <h2>Kevin Kim's: Tic-Tac-Toe React App</h2>
         <Board />
       </div>
     );
