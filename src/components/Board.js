@@ -20,12 +20,19 @@ class Board extends Component {
       ],
     };
 
+    this.handleBoxClick = this.handleBoxClick.bind(this);
+  }
+
+  handleBoxClick(evt) {
+    evt.preventDefault();
+    const boxIndex = evt.target.getAttribute('box-index');
+    console.log('Box clicked:', boxIndex);
   }
 
   renderBoxElements() {
-    let boxEls = this.state.boxes.map((boxVal) => {
+    let boxEls = this.state.boxes.map((boxVal, boxIndex) => {
       return (
-        <div className="box">
+        <div className="box" box-index={boxIndex} onClick={this.handleBoxClick}>
           {boxVal}
         </div>
       );
