@@ -10,6 +10,7 @@ const Control = (props) => {
 		playerPastScore,
 		computerPastScore,
 		resetGame,
+		resetPastScores
 	} = props;	
 
 	let currentPlayerKey = Utils.GetPlayerKey(currentPlayer);
@@ -20,6 +21,7 @@ const Control = (props) => {
       <p>Current Player: {currentPlayer}</p>
       <p>Winner: {winner ? `${currentPlayerKey} is the winner!`: 'No winner yet'}</p>
       <button className="btn btn-primary" onClick={resetGame}>Reset Game</button>
+      <button className="btn btn-warning" onClick={resetPastScores}>Reset Past History</button>
     </div>
   );
 

@@ -33,16 +33,22 @@ class Board extends Component {
 
     this.handleBoxClick = this.handleBoxClick.bind(this);
     this.resetGame = this.resetGame.bind(this);
+    this.resetPastScores = this.resetPastScores.bind(this);
+    
   }
 
   componentWillMount() {
+    this.setScoresFromLocalStorage();
+  }  
+
+  setScoresFromLocalStorage() {
     const playerPastScore = Utils.GetLocalStoreScore('player');
     const computerPastScore = Utils.GetLocalStoreScore('computer');
     this.setState({
       playerPastScore,
       computerPastScore
     });
-  }  
+  }
 
   handleBoxClick(evt) {
     evt.preventDefault();
@@ -113,6 +119,13 @@ class Board extends Component {
     });
   }
 
+  resetPastScores(evt) {
+    evt.preventDefault();
+    Utils.InitLocalStorage();
+    this.setScoresFromLocalStorage();
+
+  }
+
 
   renderBoxElements() {
     let boxEls = this.state.boxes.map((boxVal, boxIndex) => {
@@ -135,8 +148,9 @@ class Board extends Component {
           currentPlayer={this.state.currentPlayer} 
           playerPastScore={this.state.playerPastScore} 
           computerPastScore={this.state.computerPastScore} 
-          winner={this.state.winner}
-          resetGame={this.resetGame}
+          winner={this.state.winner} 
+          resetGame={this.resetGame} 
+          resetPastScores={this.resetPastScores}
         />
         <div className="board">
           {this.renderBoxElements()}
