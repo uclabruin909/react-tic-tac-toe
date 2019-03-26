@@ -17,6 +17,7 @@ class Board extends Component {
     this.state = {
       //default to player1 (X)
       currentPlayer: PlayerMap['player1'],
+      winner: false,
       //9 boxes total for 3x3 grid. init as null for blank board
       boxes: [
         null,
@@ -33,6 +34,7 @@ class Board extends Component {
 
     this.handleBoxClick = this.handleBoxClick.bind(this);
     this.resetGame = this.resetGame.bind(this);
+    this.checkForWinner = this.checkForWinner.bind(this);
   }
 
   handleBoxClick(evt) {
@@ -41,14 +43,18 @@ class Board extends Component {
     let updatedBoxes = [...this.state.boxes];
     let currentPlayer = this.state.currentPlayer;
     
-    //update target box with current player value only if null (empty)
-    if (updatedBoxes[boxIndex] === null) {
+    //update target box with current player value only if null (empty) and no current winner
+    if (updatedBoxes[boxIndex] === null && !this.state.winner) {
       updatedBoxes[boxIndex] = currentPlayer;
-      //set state with updated box values and change player
+      //set state with updated box values and change player and then check for winner
       this.setState({
         boxes: updatedBoxes,
         currentPlayer: this.state.currentPlayer === PlayerMap['player1'] ? PlayerMap['player2'] : PlayerMap['player1']
+      }, () => {
+        this.checkForWinner();
       });
+
+      
 
     }
     
@@ -61,6 +67,34 @@ class Board extends Component {
       boxes: emptyBoxes,
       currentPlayer: PlayerMap['player1']
     });
+  }
+
+  checkForWinner() {
+    //all potential winning lines
+    const winningLines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],      
+    ];
+
+    for (let i=0; i<winningLines.length; i++) {
+      const [a, b, c] = winningLines[i];
+      const currentBoxes= this.state.boxes;
+      //compare on current boxes
+      if (currentBoxes[a] && currentBoxes[a] === currentBoxes[b] && currentBoxes[a] === currentBoxes[c]) {
+        alert('There is a winner');
+        this.setState({
+          winner: true
+        });
+      }
+    }
+
+
   }
 
   renderBoxElements() {
