@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Board.css';
 
 import Box from './Box';
+import Control from './Control';
 
 //player mapping used to determine input value
 const PlayerMap = {
@@ -14,6 +15,7 @@ class Board extends Component {
     super(props);
     
     this.state = {
+      //default to player1 (X)
       currentPlayer: PlayerMap['player1'],
       //9 boxes total for 3x3 grid. init as null for blank board
       boxes: [
@@ -30,6 +32,7 @@ class Board extends Component {
     };
 
     this.handleBoxClick = this.handleBoxClick.bind(this);
+    this.resetGame = this.resetGame.bind(this);
   }
 
   handleBoxClick(evt) {
@@ -49,7 +52,15 @@ class Board extends Component {
 
     }
     
+  }
 
+  resetGame(evt) {
+    evt.preventDefault();
+    let emptyBoxes = [null, null, null, null, null, null, null, null, null];
+    this.setState({
+      boxes: emptyBoxes,
+      currentPlayer: PlayerMap['player1']
+    });
   }
 
   renderBoxElements() {
@@ -68,8 +79,14 @@ class Board extends Component {
 
   render() {
     return (
-      <div className="board">
-        {this.renderBoxElements()}
+      <div className="board-container">
+        <Control 
+          currentPlayer={this.state.currentPlayer} 
+          resetGame={this.resetGame}
+        />
+        <div className="board">
+          {this.renderBoxElements()}
+        </div>
       </div>
     );
   }
