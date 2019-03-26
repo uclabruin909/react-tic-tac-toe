@@ -22,7 +22,7 @@ const Control = (props) => {
       <p><strong>Winner:</strong> {winner ? `${currentPlayerKey.toUpperCase()} is the winner!`: 'No winner yet'}</p>
       <div className="control-buttons">
 	      <button className="btn btn-primary" onClick={resetGame}>Reset Game</button>
-	      <button className="btn btn-warning" onClick={resetPastScores}>Reset Past History</button>
+	      <button className="btn btn-warning" onClick={resetPastScores}>Reset Past Record</button>
       </div>
     </div>
   );
