@@ -1,4 +1,4 @@
-import { PlayerMap } from './Consts';
+import { PlayerMap, LS_KEY } from './Consts';
 
 class Utils {
 
@@ -50,6 +50,14 @@ class Utils {
 		console.log(emptyBoxes);
 	}
 
+	InitLocalStorage() {
+		localStorage.setItem(LS_KEY['player'], 0);
+		localStorage.setItem(LS_KEY['computer'], 0);
+	}
+
+	GetLocalStoreScore(playerKey) {
+		return localStorage.getItem(playerKey);
+	}
 
 
 }
