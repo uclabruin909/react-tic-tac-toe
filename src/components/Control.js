@@ -9,13 +9,15 @@ class Control extends Component {
   render() {
   	const {
   		currentPlayer,
+  		winner,
   		resetGame
   	} = this.props;
 
     return (
       <div className="control-container">
         <p>Current Player: {currentPlayer}</p>
-        <button onClick={resetGame}>Reset Game</button>
+        <p>Winner: {winner ? 'There is a winner!': 'No winner yet'}</p>
+        <button className="btn btn-primary" onClick={resetGame}>Reset Game</button>
       </div>
     );
   }

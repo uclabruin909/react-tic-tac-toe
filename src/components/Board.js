@@ -54,8 +54,6 @@ class Board extends Component {
         this.checkForWinner();
       });
 
-      
-
     }
     
   }
@@ -87,7 +85,6 @@ class Board extends Component {
       const currentBoxes= this.state.boxes;
       //compare on current boxes
       if (currentBoxes[a] && currentBoxes[a] === currentBoxes[b] && currentBoxes[a] === currentBoxes[c]) {
-        alert('There is a winner');
         this.setState({
           winner: true
         });
@@ -116,6 +113,7 @@ class Board extends Component {
       <div className="board-container">
         <Control 
           currentPlayer={this.state.currentPlayer} 
+          winner={this.state.winner}
           resetGame={this.resetGame}
         />
         <div className="board">
