@@ -3,42 +3,26 @@ import Utils from '../Utils';
 import { LS_KEY } from '../Consts';
 import './Control.css';
 
-class Control extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			playerPastScore: null,
-			computerPastScore: null
-		};
-	}
 
-	componentWillMount() {
-		const playerPastScore = Utils.GetLocalStoreScore(LS_KEY['player']);
-		const computerPastScore = Utils.GetLocalStoreScore(LS_KEY['computer']);
-		this.setState({
-			playerPastScore,
-			computerPastScore
-		});
-	}
+const Control = (props) => {
+	let {
+		currentPlayer,
+		winner,
+		playerPastScore,
+		computerPastScore,
+		resetGame,
+	} = props;	
 
-  render() {
-  	const {
-  		currentPlayer,
-  		winner,
-  		resetGame
-  	} = this.props;
+	let currentPlayerKey = Utils.GetPlayerKey(currentPlayer);
 
-  	const currentPlayerKey = Utils.GetPlayerKey(currentPlayer)
-
-    return (
-      <div className="control-container">
-      	<p>Past record: Player: {this.state.playerPastScore} | Computer: {this.state.computerPastScore}</p>
-        <p>Current Player: {currentPlayer}</p>
-        <p>Winner: {winner ? `${currentPlayerKey} is the winner!`: 'No winner yet'}</p>
-        <button className="btn btn-primary" onClick={resetGame}>Reset Game</button>
-      </div>
-    );
-  }
+  return (
+    <div className="control-container">
+    	<p>Past record: Player: {playerPastScore} | Computer: {computerPastScore}</p>
+      <p>Current Player: {currentPlayer}</p>
+      <p>Winner: {winner ? `${currentPlayerKey} is the winner!`: 'No winner yet'}</p>
+      <button className="btn btn-primary" onClick={resetGame}>Reset Game</button>
+    </div>
+  );
 
 }
 

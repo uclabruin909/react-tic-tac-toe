@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Board.css';
-import { PlayerMap } from '../Consts';
+import { PlayerMap, LS_KEY } from '../Consts';
 import Utils from '../Utils';
 
 import Box from './Box';
@@ -15,6 +15,8 @@ class Board extends Component {
       //default to player (X)
       currentPlayer: PlayerMap['player'],
       winner: false,
+      playerPastScore: null,
+      computerPastScore: null,      
       //9 boxes total for 3x3 grid. init as null for blank board
       boxes: [
         null,
@@ -32,6 +34,15 @@ class Board extends Component {
     this.handleBoxClick = this.handleBoxClick.bind(this);
     this.resetGame = this.resetGame.bind(this);
   }
+
+  componentWillMount() {
+    const playerPastScore = Utils.GetLocalStoreScore(LS_KEY['player']);
+    const computerPastScore = Utils.GetLocalStoreScore(LS_KEY['computer']);
+    this.setState({
+      playerPastScore,
+      computerPastScore
+    });
+  }  
 
   handleBoxClick(evt) {
     evt.preventDefault();
@@ -93,6 +104,8 @@ class Board extends Component {
       <div className="board-container">
         <Control 
           currentPlayer={this.state.currentPlayer} 
+          playerPastScore={this.state.playerPastScore} 
+          computerPastScore={this.state.computerPastScore} 
           winner={this.state.winner}
           resetGame={this.resetGame}
         />
