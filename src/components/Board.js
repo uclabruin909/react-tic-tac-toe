@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
 import './Board.css';
+import { PlayerMap } from '../Consts';
 import Utils from '../Utils';
 
 import Box from './Box';
 import Control from './Control';
 
-//player mapping used to determine input value
-const PlayerMap = {
-  player1: 'X',
-  player2: 'O'
-};
 
 class Board extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      //default to player1 (X)
-      currentPlayer: PlayerMap['player1'],
+      //default to player (X)
+      currentPlayer: PlayerMap['player'],
       winner: false,
       //9 boxes total for 3x3 grid. init as null for blank board
       boxes: [
@@ -57,11 +53,12 @@ class Board extends Component {
         });
       } else {
         this.setState({
-          currentPlayer: currentPlayer === PlayerMap['player1'] ? PlayerMap['player2'] : PlayerMap['player1'],
+          currentPlayer: currentPlayer === PlayerMap['player'] ? PlayerMap['computer'] : PlayerMap['player'],
           boxes: updatedBoxes
         });
       }
 
+      Utils.CalculateBestMove(updatedBoxes);
     }
     
   }
@@ -72,7 +69,7 @@ class Board extends Component {
     this.setState({
       boxes: emptyBoxes,
       winner: false,
-      currentPlayer: PlayerMap['player1']
+      currentPlayer: PlayerMap['player']
     });
   }
 
