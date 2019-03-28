@@ -6,6 +6,7 @@ import Utils from '../Utils';
 import Box from './Box';
 import Control from './Control';
 
+const defaultBoard = new Array(9).fill(null);
 
 class Board extends Component {
   constructor(props) {
@@ -18,17 +19,7 @@ class Board extends Component {
       playerPastScore: null,
       computerPastScore: null,      
       //9 boxes total for 3x3 grid. init as null for blank board
-      boxes: [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,        
-      ]
+      boxes: defaultBoard
     };
 
     this.handleBoxClick = this.handleBoxClick.bind(this);
@@ -111,7 +102,7 @@ class Board extends Component {
 
   resetGame(evt) {
     evt.preventDefault();
-    let emptyBoxes = [null, null, null, null, null, null, null, null, null];
+    let emptyBoxes = new Array(9).fill(null);;
     this.setState({
       boxes: emptyBoxes,
       winner: false,
