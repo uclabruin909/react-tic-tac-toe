@@ -6,7 +6,6 @@ import Utils from '../Utils';
 import Box from './Box';
 import Control from './Control';
 
-const defaultBoard = new Array(9).fill(null);
 
 class Board extends Component {
   constructor(props) {
@@ -19,7 +18,7 @@ class Board extends Component {
       playerPastScore: null,
       computerPastScore: null,      
       //9 boxes total for 3x3 grid. init as null for blank board
-      boxes: defaultBoard
+      boxes: new Array(9).fill(null)
     };
 
     this.handleBoxClick = this.handleBoxClick.bind(this);
@@ -31,6 +30,30 @@ class Board extends Component {
   componentWillMount() {
     this.setScoresFromLocalStorage();
   }  
+
+  winner(boxes, player) {
+    //all potential winning lines
+    const winningLines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],      
+    ];
+
+    for (let i=0; i<winningLines.length; i++) {
+      const [a, b, c] = winningLines[i];
+      //compare on current boxes
+      if (boxes[a] === player && boxes[a] === boxes[b] && boxes[a] === boxes[c]) {
+        return true;
+      }
+    }
+
+    return false;   
+  }
 
   setScoresFromLocalStorage() {
     const playerPastScore = Utils.GetLocalStoreScore('player');
