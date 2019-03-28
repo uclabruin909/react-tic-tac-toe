@@ -129,7 +129,7 @@ class Board extends Component {
       );
     });
     return boxEls;
-  };
+  }
 
   render() {
     return (
