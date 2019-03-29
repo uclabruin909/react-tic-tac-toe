@@ -20,6 +20,7 @@ class App extends Component {
     return (
       <div className="app-container">
         <h2>Kevin Kim's: Tic-Tac-Toe React App</h2>
+        <p>Without Computer AI Logic</p>
         <Board />
       </div>
     );
