@@ -122,15 +122,13 @@ class Board extends Component {
     }
     else {
       let bestMoveValue = 100;
-      let move = 0;
 
       for (let i = 0; i < board.length; i++) {
         let newBoard = this.isValidMove(i, PlayerMap['computer'], board);
         if (newBoard) {
-          let predictedMoveValue = this.calcMaxScore(newBoard);
-          if (predictedMoveValue < bestMoveValue) {
-            bestMoveValue = predictedMoveValue;
-            move = i;
+          let nextMoveValue = this.calcMaxScore(newBoard);
+          if (nextMoveValue < bestMoveValue) {
+            bestMoveValue = nextMoveValue;
           }
         }
       }  
@@ -151,15 +149,13 @@ class Board extends Component {
     }
     else {
       let bestMoveValue = -100;
-      let move = 0;
 
       for (let i = 0; i < board.length; i++) {
         let newBoard = this.isValidMove(i, PlayerMap['player'], board);
         if (newBoard) {
-          let predictedMoveValue = this.calcMinScore(newBoard);
-          if (predictedMoveValue > bestMoveValue) {
-            bestMoveValue = predictedMoveValue;
-            move = i;
+          let nextMoveValue = this.calcMinScore(newBoard);
+          if (nextMoveValue > bestMoveValue) {
+            bestMoveValue = nextMoveValue;
           }
         }
       }  
