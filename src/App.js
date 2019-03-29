@@ -10,7 +10,7 @@ class App extends Component {
 
 	componentWillMount() {
 		//if no local store of score history, initialize
-		if (!Utils.GetLocalStoreScore('player')) {
+		if (!Utils.GetLocalStoreScore('player') && !Utils.GetLocalStoreScore('computer')) {
 			Utils.InitLocalStorage();
 		}
 	}
