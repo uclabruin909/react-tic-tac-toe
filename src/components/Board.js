@@ -96,6 +96,8 @@ class Board extends Component {
         }
       }
     }
+
+    console.log('Computer next best move index:', move);
     return move;
   }
 
@@ -188,6 +190,7 @@ class Board extends Component {
           currentPlayer: currentPlayer === PlayerMap['player'] ? PlayerMap['computer'] : PlayerMap['player'],
           boxes: updatedBoxes
         }, () => {
+          console.log('Updated board state:', this.state);
           //play computers's move
           this.simulateComputerMove();
         });
@@ -205,6 +208,7 @@ class Board extends Component {
     let isComputerWinner = Utils.CheckForWinner(currentBoard);
     //if computer is winner, then set winner to true and update 
     if (isComputerWinner) {
+      console.log('Computer has won');
       this.setState({
         winner: true,
         boxes: currentBoard
@@ -217,11 +221,10 @@ class Board extends Component {
         currentPlayer: this.state.currentPlayer === PlayerMap['player'] ? PlayerMap['computer'] : PlayerMap['player'],
         boxes: currentBoard
       });
+      console.log('Board state after computer move:', this.state);
     }
 
   }
-
-
 
   updatePastScore(playerKey) {
     console.log(playerKey)
